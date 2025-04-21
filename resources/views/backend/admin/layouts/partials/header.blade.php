@@ -11,11 +11,11 @@
                 <li class="nav-item topbar-user dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                         <div class="avatar-sm">
-                            <img src="" alt="image profile" class="avatar-img rounded-circle" />
+                            <img src="{{ auth_storage_url(admin()->image) }}" alt="image profile" class="avatar-img rounded-circle" />
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
-                            <span class="fw-bold">Admin</span>
+                            <span class="fw-bold">{{ admin()->name }}</span>
                         </span>
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -23,11 +23,11 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        <img src="" alt="image profile" class="avatar-img rounded" />
+                                        <img src="{{ auth_storage_url(admin()->image) }}" alt="image profile" class="avatar-img rounded" />
                                     </div>
                                     <div class="u-text">
-                                        <h4>Jhon Doe</h4>
-                                        <p class="text-muted">K9S5M@example.com</p>
+                                        <h4>{{ admin()->name }}</h4>
+                                        <p class="text-muted">{{ admin()->email }}</p>
                                     </div>
                                 </div>
                             </li>

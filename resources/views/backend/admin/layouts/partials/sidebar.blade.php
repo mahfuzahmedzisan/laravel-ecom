@@ -22,21 +22,46 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
-                <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'dashboard')) active @endif">
+                <li class="nav-item  @if (isset($page_slug) && $page_slug == 'dashboard') active @endif">
                     <a href="{{ route('admin.dashboard') }}">
                         <i class='bx bxs-dashboard'></i>
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
 
-                <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'a')) active @endif">
+                <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'admin' || $page_slug == 'r')) active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#adminManagement"
+                        @if (isset($page_slug) && ($page_slug == 'admin' || $page_slug == 'r')) aria-expanded="true" @endif>
+                        <i class="icon-people"></i>
+                        <p>{{ __('Admin Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if (isset($page_slug) && ($page_slug == 'admin' || $page_slug == 'r')) show @endif" id="adminManagement">
+                        <ul class="nav nav-collapse">
+                            <li class="@if (isset($page_slug) && $page_slug == 'admin') active @endif">
+                                <a href="{{ route('am.admin.index') }}">
+                                    <span class="sub-item">{{ __('Admin') }}</span>
+                                </a>
+                            </li>
+                            <li class="@if (isset($page_slug) && $page_slug == 'c') active @endif">
+                                <a href="">
+                                    <span class="sub-item">{{ __('Sub item 2') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- Single Label --}}
+                {{-- <li class="nav-item  @if (isset($page_slug) && $page_slug == 'a') active @endif">
                     <a href="">
                         <i class="icon-chart"></i>
                         <p>{{ __('Single label') }}</p>
                     </a>
-                </li>
+                </li> --}}
 
-                <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'b' || $page_slug == 'c')) active submenu @endif">
+                {{-- Submenu --}}
+                {{-- <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'b' || $page_slug == 'c')) active submenu @endif">
                     <a data-bs-toggle="collapse" href="#1"
                         @if (isset($page_slug) && ($page_slug == 'b' || $page_slug == 'c')) aria-expanded="true" @endif>
                         <i class="icon-people"></i>
@@ -45,19 +70,19 @@
                     </a>
                     <div class="collapse @if (isset($page_slug) && ($page_slug == 'b' || $page_slug == 'c')) show @endif" id="1">
                         <ul class="nav nav-collapse">
-                            <li class="@if (isset($page_slug) && ($page_slug == 'b')) active @endif">
+                            <li class="@if (isset($page_slug) && $page_slug == 'b') active @endif">
                                 <a href="">
                                     <span class="sub-item">{{ __('Sub item 1') }}</span>
                                 </a>
                             </li>
-                            <li class="@if (isset($page_slug) && ($page_slug == 'c')) active @endif">
+                            <li class="@if (isset($page_slug) && $page_slug == 'c') active @endif">
                                 <a href="">
                                     <span class="sub-item">{{ __('Sub item 2') }}</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

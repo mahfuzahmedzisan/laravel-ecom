@@ -27,13 +27,12 @@
                     <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                         aria-expanded="false">
                         <div class="avatar-sm">
-                            <img src="" alt="image profile"
+                            <img src="{{ auth_storage_url(user()->image) }}" alt="image profile"
                                 class="avatar-img rounded-circle" />
-                                1st
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
-                            <span class="fw-bold">Jhon Doe</span>
+                            <span class="fw-bold">{{ user()->name }}</span>
                         </span>
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -41,13 +40,12 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        <img src="" alt="image profile"
+                                        <img src="{{ auth_storage_url(user()->image) }}" alt="image profile"
                                             class="avatar-img rounded" />
-                                            2nd
                                     </div>
                                     <div class="u-text">
-                                        <h4>Jhon Doe</h4>
-                                        <p class="text-muted">K9S5M@example.com</p>
+                                        <h4>{{ user()->name }}</h4>
+                                        <p class="text-muted">{{ user()->email }}</p>
                                     </div>
                                 </div>
                             </li>

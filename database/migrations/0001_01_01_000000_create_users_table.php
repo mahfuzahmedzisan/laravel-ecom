@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Traits\AuditColumnTrait;
+use App\Models\User;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use SoftDeletes;
+    use SoftDeletes, AuditColumnTrait;
     /**
      * Run the migrations.
      */
@@ -22,6 +24,13 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            $this->addMorpheAuditColumns($table);
+
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('image')->nullable();
+            $table->tinyInteger('status')->default(User::STATUS_ACTIVE)->comment(User::STATUS_ACTIVE . ' = Active, ' . User::STATUS_PENDING . ' = Pending, ' . User::STATUS_INACTIVE . ' = Inactive');
+            $table->string('gender')->default(User::GENDER_OTHER)->comment(User::GENDER_MALE . ' = Male, ' . User::GENDER_FEMALE . ' = Female, ' . User::GENDER_OTHER . ' = Other');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
