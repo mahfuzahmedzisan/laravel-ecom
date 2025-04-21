@@ -32,6 +32,16 @@
                 <a href="{{ route('register') }}"
                     class="ml-4 px-4 py-2 text-sm font-medium text-white bg-emerald-600 border border-transparent rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Register</a>
             @endauth
+
+            @auth('admin')
+                <a href="{{ route('admin.dashboard') }}"
+                    class="px-4 py-2 text-sm font-medium text-white bg-rose-600 border border-transparent rounded-md hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">Admin
+                    Dashboard</a>
+            @else
+                <a href="{{ route('admin.login') }}"
+                    class="ml-4 px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Admin
+                    Login</a>
+            @endauth
         </div>
     </div>
 </body>
