@@ -39,7 +39,7 @@
     .main-header .btn.btn-toggle.toggle-sidebar,
     .main-header .btn.btn-toggle.sidenav-toggler,
     .main-header .topbar-toggler.more {
-        padding: 5px !important;
+        padding: 10px 5px !important;
     }
 </style>
 

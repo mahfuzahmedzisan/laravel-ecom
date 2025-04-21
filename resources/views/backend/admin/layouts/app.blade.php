@@ -1,16 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="@yield('meta_description', 'Default description')">
-    <meta name="keywords" content="@yield('meta_keywords', 'Default keywords')">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{-- Boxicons CDN Link --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
         @section('title')
@@ -21,31 +17,38 @@
         @endif
         {{ config('app.name', 'Ecommerce') }}
     </title>
-    
-    {{-- Custom CSS Link --}}
-    @stack('css-links')
 
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    {{-- Custom CSS --}}
-    @stack('css')
-
+     {{-- All Css  --}}
+    @include('backend.admin.layouts.src.css')
 </head>
 
 <body>
-    @include('backend.admin.layouts.partials.header')
+    <div class="wrapper">
+        {{--  Sidebar  --}}
+        @include('backend.admin.layouts.partials.sidebar')
+        {{-- End sidebar --}}
 
-    @yield('content')
+        <div class="main-panel">
+             
+            {{-- Header --}}
+            @include('backend.admin.layouts.partials.header')
+            {{-- End Header --}}
 
-    @include('backend.admin.layouts.partials.footer')
+            {{-- Main Content --}}
+            <div class="container">
+                <div class="page-inner">
+                    @yield('content')
+                </div>
+            </div>
+            {{-- End Main Content --}}
 
-    {{-- Boxicons CDN Link --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/dist/boxicons.min.js"></script>
-    {{-- Custom JS Links --}}
-    @stack('js-links')
-    {{-- Custom JS --}}
-    @stack('js')
+            {{-- Footer --}}
+            @include('backend.admin.layouts.partials.footer')
+            {{-- End Footer --}}
+        </div>
+    </div>
+
+    {{-- All Scripts --}}
+    @include('backend.admin.layouts.src.js')
 </body>
-
 </html>

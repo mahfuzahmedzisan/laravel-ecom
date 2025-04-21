@@ -1,7 +1,10 @@
-@extends('backend.admin.layouts.app')
+@extends('backend.admin.layouts.app', ['page_slug' => 'dashboard'])
+@section('title', 'User Dashboard')
 @section('content')
-    <div class="container mx-auto mt-10">
-        <h1 class="text-2xl font-bold text-center">Admin Dashboard</h1>
-        <p class="mt-4 text-center">Welcome to your dashboard, {{ auth('admin')->user()->name }}!</p>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h1 class="fs-2 fw-bold text-center">User Dashboard</h1>
+            <p class="mt-4 text-center">Welcome to your dashboard, {{ auth('admin')->user()->name }}!</p>
+        </div>
     </div>
 @endsection

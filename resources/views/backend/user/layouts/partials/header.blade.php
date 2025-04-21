@@ -3,8 +3,7 @@
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
             <a href="index.html" class="logo">
-                <img src="{{ asset('backend/admin/assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
-                    class="navbar-brand" height="20" />
+                <h3 class="text-light">{{ config('app.name', 'Ecommerce') }}</h3>
             </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
@@ -30,6 +29,7 @@
                         <div class="avatar-sm">
                             <img src="" alt="image profile"
                                 class="avatar-img rounded-circle" />
+                                1st
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
@@ -43,6 +43,7 @@
                                     <div class="avatar-lg">
                                         <img src="" alt="image profile"
                                             class="avatar-img rounded" />
+                                            2nd
                                     </div>
                                     <div class="u-text">
                                         <h4>Jhon Doe</h4>

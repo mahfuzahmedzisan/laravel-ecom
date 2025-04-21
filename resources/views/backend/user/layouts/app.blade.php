@@ -18,76 +18,37 @@
         {{ config('app.name', 'Ecommerce') }}
     </title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="" type="image/x-icon" />
-    <!-- Fonts and icons -->
-    <script src="{{ asset('backend/assets/js/plugin/webfont/webfont.min.js') }}"></script>
-    <script>
-        WebFont.load({
-            google: {
-                families: ["Public Sans:300,400,500,600,700"]
-            },
-            custom: {
-                families: [
-                    "Font Awesome 5 Solid",
-                    "Font Awesome 5 Regular",
-                    "Font Awesome 5 Brands",
-                    "simple-line-icons",
-                ],
-                urls: ["{{ asset('backend/assets/css/fonts.min.css') }}"],
-            },
-            active: function() {
-                sessionStorage.fonts = true;
-            },
-        });
-    </script>
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/kaiadmin.min.css') }}" />
-
-    {{-- Boxicons CDN Link --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" />
-    {{-- FontAwesome 6 CDN LINK --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-    {{-- Custom CSS   --}}
-    @stack('css_links')
-    @stack('css')
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
+     {{-- All Css  --}}
+    @include('backend.user.layouts.src.css')
 </head>
 
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
+        {{--  Sidebar  --}}
         @include('backend.user.layouts.partials.sidebar')
-        <!-- End Sidebar -->
+        {{-- End sidebar --}}
 
         <div class="main-panel">
-            <!-- Header -->
+             
+            {{-- Header --}}
             @include('backend.user.layouts.partials.header')
-            <!-- End Header -->
+            {{-- End Header --}}
 
+            {{-- Main Content --}}
             <div class="container">
                 <div class="page-inner">
                     @yield('content')
                 </div>
             </div>
+            {{-- End Main Content --}}
 
-            <!-- Footer -->
+            {{-- Footer --}}
             @include('backend.user.layouts.partials.footer')
-            <!-- End Footer -->
+            {{-- End Footer --}}
         </div>
     </div>
+
+    {{-- All Scripts --}}
+    @include('backend.user.layouts.src.js')
 </body>
-
-
-<!--   Core JS Files   -->
-<script src="{{ asset('backend/assets/js/core/jquery-3.7.1.min.js') }}"></script>
-<!-- Kaiadmin JS -->
-<script src="{{ asset('backend/assets/js/kaiadmin.min.js') }}"></script>
-
-{{-- Custom Js  --}}
-@stack('js_links')
-@stack('js')
-
 </html>
