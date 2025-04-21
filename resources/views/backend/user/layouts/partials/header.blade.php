@@ -1,26 +1,72 @@
-<header>
-    <nav class="bg-gray-800">
-        <div class="container mx-auto">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{{ url('/') }}"
-                        class="text-white text-lg font-semibold">{{ config('app.name', 'Ecommerce') }}</a>
-                </div>
-                <div class="flex items-center">
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="{{ route('user.dashboard') }}"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-                            <a href="javascript:void(0)"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
-                </div>
+<div class="main-header">
+    <div class="main-header-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+                <img src="{{ asset('backend/admin/assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
+                    class="navbar-brand" height="20" />
+            </a>
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                    <i class="gg-menu-left"></i>
+                </button>
             </div>
+            <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+            </button>
+        </div>
+        <!-- End Logo Header -->
+    </div>
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+        <div class="container-fluid">
+            <ul class="navbar-nav topbar-nav ms-md-auto me-3 align-items-center">
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                    <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
+                        aria-expanded="false">
+                        <div class="avatar-sm">
+                            <img src="" alt="image profile"
+                                class="avatar-img rounded-circle" />
+                        </div>
+                        <span class="profile-username">
+                            <span class="op-7">Hi,</span>
+                            <span class="fw-bold">Jhon Doe</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user animated fadeIn">
+                        <div class="dropdown-user-scroll scrollbar-outer">
+                            <li>
+                                <div class="user-box">
+                                    <div class="avatar-lg">
+                                        <img src="" alt="image profile"
+                                            class="avatar-img rounded" />
+                                    </div>
+                                    <div class="u-text">
+                                        <h4>Jhon Doe</h4>
+                                        <p class="text-muted">K9S5M@example.com</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"
+                                    onclick="document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
-</header>
+    <!-- End Navbar -->
+</div>
