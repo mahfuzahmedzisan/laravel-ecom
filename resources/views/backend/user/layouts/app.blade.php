@@ -12,9 +12,15 @@
     {{-- Boxicons CDN Link --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" />
 
-    <title>@yield('title')@if (isset($title))
+    <title>
+        @section('title')
+            {{ isset($title) ? $title : '' }}
+        @show
+        @if (!empty(trim($__env->yieldContent('title'))))
             {{ __(' - ') }}
-        @endif {{ config('app.name', 'Ecommerce') }}</title>
+        @endif
+        {{ config('app.name', 'Ecommerce') }}
+    </title>
 
     {{-- Custom CSS Link --}}
     @stack('css-links')

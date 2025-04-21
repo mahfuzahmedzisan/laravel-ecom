@@ -1,5 +1,5 @@
 @extends('backend.user.layouts.app')
-
+@section('title', 'User Dashboard')
 @section('content')
     <div class="container mx-auto mt-10">
         <h1 class="text-2xl font-bold text-center">User Dashboard</h1>

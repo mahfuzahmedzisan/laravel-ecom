@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{ config('app.name', 'Ecommerce') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,7 +19,7 @@
     <div class="flex flex-col items-center justify-center min-h-screen py-4 bg-gray-100 sm:py-0">
         <div>
             <h1 class="text-4xl font-bold text-gray-800">Welcome to Laravel</h1>
-            <p class="mt-2 text-lg text-gray-600">This is a simple Laravel application.</p>
+            <p class="mt-2 text-lg text-gray-600 text-center">This is a simple Laravel application.</p>
         </div>
 
         <div class="mt-6">

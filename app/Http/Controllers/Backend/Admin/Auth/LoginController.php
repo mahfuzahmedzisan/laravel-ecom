@@ -19,7 +19,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('logout'); // Protect admin routes
+        $this->middleware('guest:admin')->except('logout');
     }
 
     /**
