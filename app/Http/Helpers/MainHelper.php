@@ -14,18 +14,10 @@ function user()
 
 function timeFormat($time)
 {
-  return date('H:i', strtotime($time));
+    return date(('d M, Y H:i A'), strtotime($time));
 }
 
-function dateFormat($date)
-{
-  return date('d/m/Y', strtotime($date));
-}
 
-function dateTimeFormat($dateTime)
-{
-  return date('d/m/Y H:i', strtotime($dateTime));
-}
 
 function storage_url($urlOrArray)
 {

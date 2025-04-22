@@ -31,9 +31,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->email }}</td>
-                                        <td>Status</td>
+                                        <td><span class="badge {{ $admin->status_badge_color }}">{{ $admin->status_badge_label }}</span></td>
                                         <td>{{ timeFormat($admin->created_at) }}</td>
-                                        <td>Created By</td>
+                                        <td>{{ $admin->createdBy->name ?? 'System'}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

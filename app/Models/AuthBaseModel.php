@@ -38,11 +38,6 @@ class AuthBaseModel extends Authenticatable
         return $this->morphTo();
     }
 
-    public function scopeCreadedBy($query, $userId)
-    {
-        return $query->where('created_by', $userId) ?? 'System';
-    }
-
     public const STATUS_ACTIVE = 2;
     public const STATUS_PENDING = 1;
     public const STATUS_INACTIVE = 0;
@@ -51,21 +46,36 @@ class AuthBaseModel extends Authenticatable
     public const GENDER_FEMALE = 2;
     public const GENDER_OTHER = 3;
 
+    protected $appends = [
+        'status_badge_label',
+        'status_badge_color',
+    ];
+
     public function getStatus()
     {
-        return match ($this->status) {
+        return  [
             self::STATUS_ACTIVE => 'Active',
             self::STATUS_PENDING => 'Pending',
             self::STATUS_INACTIVE => 'Inactive',
-        };
+        ];
     }
 
-    public function getGender()
+    public function getStatusBg()
     {
-        return match ($this->gender) {
-            self::GENDER_MALE => 'Male',
-            self::GENDER_FEMALE => 'Female',
-            self::GENDER_OTHER => 'Other',
-        };
+        return  [
+            self::STATUS_ACTIVE => 'bg-success',
+            self::STATUS_PENDING => 'bg-info',
+            self::STATUS_INACTIVE => 'bg-warning',
+        ];
+    }
+
+    public function getStatusBadgeLabelAttribute()
+    {
+        return $this->getStatus()[$this->status] ?? 'Unknown';
+    }
+
+    public function getStatusBadgeColorAttribute()
+    {
+        return $this->getStatusBg()[$this->status] ?? 'bg-secondary';
     }
 }
