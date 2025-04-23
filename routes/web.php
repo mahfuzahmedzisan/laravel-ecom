@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboardController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -21,3 +18,4 @@ Route::controller(AdminLoginController::class)->prefix('admin')->name('admin.')-
 
 @include __DIR__ . '/user.php';
 @include __DIR__ . '/admin.php';
+@include __DIR__ . '/frontend.php';

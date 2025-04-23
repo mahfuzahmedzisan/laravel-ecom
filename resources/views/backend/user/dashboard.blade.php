@@ -1,10 +1,10 @@
-@extends('backend.user.layouts.app', ['page_slug' => 'dashboard'])
+@extends('frontend.layouts.app', ['page_slug' => 'dashboard'])
 @section('title', 'User Dashboard')
 @section('content')
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h1 class="fs-2 fw-bold text-center">User Dashboard</h1>
-            <p class="mt-4 text-center">Welcome to your dashboard, {{ user()->name }}!</p>
+    <div class="container mx-auto mt-10 h-[500px]  flex justify-center items-center">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold">User Dashboard</h1>
+            <p>Welcome to your dashboard, {{ user()->name }}!</p>
         </div>
     </div>
 @endsection
