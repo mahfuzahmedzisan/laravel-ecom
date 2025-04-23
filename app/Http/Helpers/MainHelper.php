@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AuthBaseModel;
 use Illuminate\Support\Facades\Auth;
 
 function admin()
@@ -14,12 +15,27 @@ function user()
 
 function timeFormat($time)
 {
-    return date(('d M, Y H:i A'), strtotime($time));
+  return date(('d M, Y H:i A'), strtotime($time));
 }
 
-function createrName($name)
+function createrName($user)
 {
-    return $name ? $name : 'System';
+  return $user->name ?? 'System';
+}
+
+function updaterName($user)
+{
+  return $user->name ?? 'Null';
+}
+
+function deleterName($user)
+{
+  return $user->name ?? 'Null';
+}
+
+function updatedDate($createdAt, $updatedAt)
+{
+  return $createdAt == $updatedAt ? "N/A" : timeFormat($updatedAt);
 }
 
 
@@ -50,10 +66,19 @@ function storage_url($urlOrArray)
 function auth_storage_url($url, $gender = false)
 {
   $image = asset('default_img/other.png');
-  if ($gender == 1) {
+  if ($gender == AuthBaseModel::GENDER_MALE) {
     $image = asset('default_img/male.jpeg');
-  } elseif ($gender == 2) {
+  } elseif ($gender == AuthBaseModel::GENDER_FEMALE) {
     $image = asset('default_img/female.jpg');
   }
   return $url ? asset('storage/' . $url) : $image;
+}
+
+function genders()
+{
+  return [
+    AuthBaseModel::GENDER_MALE => 'Male',
+    AuthBaseModel::GENDER_FEMALE => 'Female',
+    AuthBaseModel::GENDER_OTHER => 'Other',
+  ];
 }

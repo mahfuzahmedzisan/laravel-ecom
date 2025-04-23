@@ -28,22 +28,43 @@
 {{-- FontAwesome 6 CDN LINK --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 {{-- Bootstrap Icons --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+
+{{-- CSS LINKS  --}}
+@stack('css_links')
 
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 <style>
-    .main-header {
-        background: none;
-    }
-
     .main-header .btn.btn-toggle.toggle-sidebar,
     .main-header .btn.btn-toggle.sidenav-toggler,
     .main-header .topbar-toggler.more {
         padding: 10px 5px !important;
     }
+
+    .dropdown-menu .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 100%;
+        top: 0;
+        margin-left: 0.1rem;
+    }
+
+    .dropdown-menu .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown i.setting {
+        color: #2d2d2d;
+        transition: all 0.5s linear;
+    }
+
+    .dropdown i.setting:hover {
+        transform: rotate(90deg) !important;
+        color: #007bff;
+    }
 </style>
 
 {{-- Custom CSS   --}}
-@stack('css_links')
 @stack('css')

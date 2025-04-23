@@ -6,5 +6,14 @@
 
 {{-- Custom Js  --}}
 @stack('js_links')
+<script>
+    $(document).ready(function() {
+        $('.dropdown-menu .dropdown').hover(function() {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideDown(200);
+        }, function() {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideUp(200);
+        });
+    });
+</script>
 @stack('js')
   

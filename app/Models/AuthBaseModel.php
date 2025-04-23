@@ -11,16 +11,16 @@ class AuthBaseModel extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    public function created_by()
+    public function createdBy()
     {
         return $this->belongsTo(Admin::class, 'created_by');
     }
-   public function updated_by()
+    public function updatedBy()
     {
         return $this->belongsTo(Admin::class, 'updated_by');
     }
 
-    public function deleted_by()
+    public function deletedBy()
     {
         return $this->belongsTo(Admin::class, 'deleted_by');
     }
@@ -49,6 +49,7 @@ class AuthBaseModel extends Authenticatable
     protected $appends = [
         'status_badge_label',
         'status_badge_color',
+        'gender_label',
     ];
 
     public function getStatus()
@@ -60,12 +61,30 @@ class AuthBaseModel extends Authenticatable
         ];
     }
 
+    public function getStatusBtnText($currentStatus)
+    {
+        $statusTexts = [];
+
+        foreach ($this->getStatus() as $key => $value) {
+            if ($key == $currentStatus) {
+                continue;
+            }
+
+            $statusTexts[] = [
+                'class' => $this->getStatusBg()[$key] ?? 'secondary',
+                'text'  => $value,
+            ];
+        }
+
+        return $statusTexts;
+    }
+
     public function getStatusBg()
     {
         return  [
-            self::STATUS_ACTIVE => 'bg-success',
-            self::STATUS_PENDING => 'bg-info',
-            self::STATUS_INACTIVE => 'bg-warning',
+            self::STATUS_ACTIVE => 'success',
+            self::STATUS_PENDING => 'info',
+            self::STATUS_INACTIVE => 'warning',
         ];
     }
 
@@ -77,5 +96,19 @@ class AuthBaseModel extends Authenticatable
     public function getStatusBadgeColorAttribute()
     {
         return $this->getStatusBg()[$this->status] ?? 'bg-secondary';
+    }
+
+    public function getGender()
+    {
+        return [
+            self::GENDER_MALE => 'Male',
+            self::GENDER_FEMALE => 'Female',
+            self::GENDER_OTHER => 'Other',
+        ];
+    }
+
+    public function getGenderLabelAttribute()
+    {
+        return $this->getGender()[$this->gender] ?? 'Unknown';
     }
 }
