@@ -76,9 +76,10 @@ function auth_storage_url($url, $gender = false)
 
 function genders()
 {
-  return [
-    AuthBaseModel::GENDER_MALE => 'Male',
-    AuthBaseModel::GENDER_FEMALE => 'Female',
-    AuthBaseModel::GENDER_OTHER => 'Other',
-  ];
+  $genders = [];
+  $authBaseModel = new AuthBaseModel();
+  foreach ($authBaseModel->getStatus() as $key => $value) {
+    $genders[$key] = $value;
+  }
+  return $genders;
 }
