@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     // Role Management
     Route::resource('role', RoleController::class);
-    Route::group(['as' => 'role.', 'prefix' => 'role'], function () {
+    Route::group(['as' => 'role.', 'prefix' => 'role-restore'], function () {
       Route::get('/trash', [RoleController::class, 'trash'])->name('trash');
       Route::get('/restore/{id}', [RoleController::class, 'restore'])->name('restore');
       Route::get('/force-delete/{id}', [RoleController::class, 'forceDelete'])->name('force-delete');

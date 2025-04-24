@@ -3,17 +3,25 @@
 namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminManagement\RoleRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $roles = Role::latest()->get();
+        return view('backend.admin.adminManagement.role.index', compact('roles'));
     }
 
     /**
@@ -21,15 +29,22 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.admin.adminManagement.role.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $validated['created_by'] = admin()->id;
+
+        Role::create($validated);
+
+        session()->flash('success', 'Role created successfully.');
+        return redirect()->route('am.role.index');
     }
 
     /**
@@ -37,7 +52,9 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $role = Role::findOrFail(decrypt($id));
+
+        return view('backend.admin.adminManagement.role.view', compact('role'));
     }
 
     /**
@@ -45,15 +62,24 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role = Role::findOrFail(decrypt($id));
+        return view('backend.admin.adminManagement.role.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RoleRequest $request, string $id)
     {
-        //
+        $role = Role::findOrFail(decrypt($id));
+
+        $validated = $request->validated();
+        $validated['updated_by'] = admin()->id;
+
+        $role->update($validated);
+
+        session()->flash('success', 'Role updated successfully.');
+        return redirect()->route('am.role.index');
     }
 
     /**
@@ -61,11 +87,17 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::findOrFail(decrypt($id));
+        $role->update(['deleted_by' => admin()->id]);
+        $role->delete();
+
+        session()->flash('success', 'Role deleted successfully.');
+        return redirect()->route('am.role.index');
     }
 
     public function trash()
     {
+
         $roles = Role::onlyTrashed()->latest()->get();
         $roles->load('deletedBy');
         return view('backend.admin.adminManagement.role.trash', compact('roles'));

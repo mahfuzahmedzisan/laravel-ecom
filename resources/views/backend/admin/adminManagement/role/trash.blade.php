@@ -1,13 +1,13 @@
-@extends('backend.admin.layouts.app', ['page_slug' => 'admin'])
-@section('title', 'Admin Restore')
+@extends('backend.admin.layouts.app', ['page_slug' => 'role'])
+@section('title', 'Role Restore')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title">Admin Restore</h4>
+                    <h4 class="card-title">Role Restore</h4>
                     <div>
-                        <a href="{{ route('am.admin.index') }}" class="btn btn-primary">Back</a>
+                        <a href="{{ route('am.role.index') }}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -17,26 +17,20 @@
                                 <tr>
                                     <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Guard Name') }}</th>
                                     <th>{{ __('Deleted At') }}</th>
                                     <th>{{ __('Deleted By') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($admins as $admin)
+                                @forelse($roles as $role)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $admin->name }}</td>
-                                        <td>{{ $admin->email }}</td>
-                                        <td>
-                                            <span class="badge badge-{{ $admin->status_badge_color }}">
-                                                {{ $admin->status_badge_label }}
-                                            </span>
-                                        </td>
-                                        <td>{{ timeFormat($admin->deleted_at) }}</td>
-                                        <td>{{ $admin->deletedBy->name }}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td>{{ $role->guard_name }}</td>
+                                        <td>{{ timeFormat($role->deleted_at) }}</td>
+                                        <td>{{ $role->deleted_by_name }}</td>
 
                                         <td>
                                             <div
@@ -52,13 +46,13 @@
                                                         aria-labelledby="dropdownMenuButton1">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.admin.restore', encrypt($admin->id)) }}">
+                                                                href="{{ route('am.role.restore', encrypt($role->id)) }}">
                                                                 {{ __('Restore') }}
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a title="Delete" class="dropdown-item text-danger"
-                                                                href="{{ route('am.admin.force-delete', encrypt($admin->id)) }}">
+                                                                href="{{ route('am.role.force-delete', encrypt($role->id)) }}">
                                                                 {{ __('Permanently Delete') }}
                                                             </a>
 
