@@ -6,6 +6,8 @@
 
 {{-- Custom Js  --}}
 @stack('js_links')
+
+@vite(['resources/js/app.js'])
 <script>
     $(document).ready(function() {
         $('.dropdown-menu .dropdown').hover(function() {

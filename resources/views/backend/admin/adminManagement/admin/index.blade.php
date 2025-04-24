@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive overflow-visible">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="datatable">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>{{ __('#') }}</th>
@@ -115,3 +115,31 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+
+            $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                responsive: true,
+                iDisplayLength: 10,
+                order: [
+                    [0, 'desc']
+                ],
+                buttons: [{
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        orientation: 'potrait',
+                        pagesize: 'A4',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    'excel', 'csv', 'pageLength',
+                ]
+            });
+
+        });
+    </script>
+@endpush

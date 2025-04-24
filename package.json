@@ -18,6 +18,12 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
+        "datatables.net-buttons-dt": "^3.2.2",
+        "datatables.net-dt": "^2.2.2",
+        "datatables.net-responsive-dt": "^3.0.4",
+        "datatables.net-scroller-dt": "^2.4.3",
+        "jszip": "^3.10.1",
+        "pdfmake": "^0.2.18",
         "sweetalert2": "^11.19.1"
     }
 }

@@ -34,7 +34,7 @@
 {{-- CSS LINKS  --}}
 @stack('css_links')
 
-@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+@vite(['resources/sass/app.scss', 'resources/css/datatables.css'])
 
 <style>
     .main-header .btn.btn-toggle.toggle-sidebar,
