@@ -18,8 +18,24 @@
         {{ config('app.name', 'Ecommerce') }}
     </title>
 
-     {{-- All Css  --}}
+    {{-- All Css  --}}
     @include('backend.admin.layouts.src.css')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                showAlert('success', '{{ session('success') }}');
+            @endif
+
+            @if (session('error'))
+                showAlert('error', '{{ session('error') }}');
+            @endif
+
+            @if (session('warning'))
+                showAlert('warning', '{{ session('warning') }}');
+            @endif
+        });
+    </script>
 </head>
 
 <body>
@@ -29,7 +45,7 @@
         {{-- End sidebar --}}
 
         <div class="main-panel">
-             
+
             {{-- Header --}}
             @include('backend.admin.layouts.partials.header')
             {{-- End Header --}}
@@ -51,4 +67,5 @@
     {{-- All Scripts --}}
     @include('backend.admin.layouts.src.js')
 </body>
+
 </html>
