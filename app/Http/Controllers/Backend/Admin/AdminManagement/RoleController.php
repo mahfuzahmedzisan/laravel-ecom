@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers\Backend\Admin\AdminManagement;
+
+use App\Http\Controllers\Controller;
+use App\Models\Role;
+use Illuminate\Http\Request;
+
+class RoleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function trash()
+    {
+        $roles = Role::onlyTrashed()->latest()->get();
+        $roles->load('deletedBy');
+        return view('backend.admin.adminManagement.role.trash', compact('roles'));
+    }
+
+    public function restore(string $id)
+    {
+        $role = Role::onlyTrashed()->findOrFail(decrypt($id));
+        $role->update(['deleted_by' => null, 'deleted_at' => null, 'updated_by' => admin()->id]);
+        $role->restore();
+
+        session()->flash('success', 'Role restored successfully.');
+        return redirect()->route('am.role.index');
+    }
+
+    public function forceDelete(string $id)
+    {
+        $role = Role::onlyTrashed()->findOrFail(decrypt($id));
+        $role->forceDelete();
+
+        session()->flash('success', 'Role permanently deleted successfully.');
+        return redirect()->route('am.role.index');
+    }
+}

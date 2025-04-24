@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin\AdminManagement\Admin;
+namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -45,7 +45,9 @@ class AdminController extends Controller
         $validated['created_by'] = admin()->id;
 
         Admin::create($validated);
-        return redirect()->route('am.admin.index')->with('success', 'Admin created successfully.');
+
+        session()->flash('success', 'Admin created successfully.');
+        return redirect()->route('am.admin.index');
     }
 
     /**
@@ -90,7 +92,9 @@ class AdminController extends Controller
         $validated['updated_by'] = admin()->id;
 
         $admin->update($validated);
-        return redirect()->route('am.admin.index')->with('success', 'Admin updated successfully.');
+
+        session()->flash('success', 'Admin updated successfully.');
+        return redirect()->route('am.admin.index');
     }
 
     /**
@@ -101,14 +105,18 @@ class AdminController extends Controller
         $admin = Admin::findOrFail(decrypt($id));
         $admin->update(['deleted_by' => admin()->id, 'status' => Admin::STATUS_INACTIVE]);
         $admin->delete();
-        return redirect()->route('am.admin.index')->with('success', 'Admin deleted successfully.');
+
+        session()->flash('success', 'Admin deleted successfully.');
+        return redirect()->route('am.admin.index');
     }
 
     public function status(string $id, string $status)
     {
         $admin = Admin::findOrFail(decrypt($id));
         $admin->update(['status' => decrypt($status), 'updated_by' => admin()->id]);
-        return redirect()->route('am.admin.index')->with('success', 'Admin status updated successfully.');
+
+        session()->flash('success', 'Admin status updated successfully.');
+        return redirect()->route('am.admin.index');
     }
 
     public function trash()
@@ -123,7 +131,9 @@ class AdminController extends Controller
         $admin = Admin::onlyTrashed()->findOrFail(decrypt($id));
         $admin->update(['deleted_by' => null, 'deleted_at' => null, 'updated_by' => admin()->id, 'status' => Admin::STATUS_ACTIVE]);
         $admin->restore();
-        return redirect()->route('am.admin.index')->with('success', 'Admin restored successfully.');
+
+        session()->flash('success', 'Admin restored successfully.');
+        return redirect()->route('am.admin.index');
     }
 
     public function forceDelete(string $id)
@@ -133,6 +143,8 @@ class AdminController extends Controller
             Storage::disk('public')->delete($admin->image);
         }
         $admin->forceDelete();
-        return redirect()->route('am.admin.index')->with('success', 'Admin permanently deleted successfully.');
+
+        session()->flash('success', 'Admin permanently deleted successfully.');
+        return redirect()->route('am.admin.index');
     }
 }

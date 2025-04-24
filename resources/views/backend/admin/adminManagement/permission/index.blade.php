@@ -1,14 +1,14 @@
-@extends('backend.admin.layouts.app', ['page_slug' => 'admin'])
-@section('title', 'Admin Management')
+@extends('backend.admin.layouts.app', ['page_slug' => 'permission'])
+@section('title', 'Permission Management')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title">Admin Management</h4>
+                    <h4 class="card-title">Permission Management</h4>
                     <div>
-                        <a href="{{ route('am.admin.trash') }}" class="btn btn-info">Trash</a>
-                        <a href="{{ route('am.admin.create') }}" class="btn btn-primary">Add New</a>
+                        <a href="{{ route('am.permission.trash') }}" class="btn btn-info">Trash</a>
+                        <a href="{{ route('am.permission.create') }}" class="btn btn-primary">Add New</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -18,26 +18,22 @@
                                 <tr>
                                     <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Prefix') }}</th>
+                                    <th>{{ __('Guard Name') }}</th>
                                     <th>{{ __('Created At') }}</th>
                                     <th>{{ __('Created By') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($admins as $admin)
+                                @forelse ($permissions as $permission)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $admin->name }}</td>
-                                        <td>{{ $admin->email }}</td>
-                                        <td>
-                                            <span class="badge badge-{{ $admin->status_badge_color }}">
-                                                {{ $admin->status_badge_label }}
-                                            </span>
-                                        </td>
-                                        <td>{{ timeFormat($admin->created_at) }}</td>
-                                        <td>{{ createrName($admin->createdBy) }}</td>
+                                        <td>{{ $permission->name }}</td>
+                                        <td>{{ $permission->prefix }}</td>
+                                        <td>{{ $permission->guard_name }}</td>
+                                        <td>{{ timeFormat($permission->created_at) }}</td>
+                                        <td>{{ $permission->created_by_name }}</td>
 
                                         <td>
                                             <div
@@ -53,41 +49,24 @@
                                                         aria-labelledby="dropdownMenuButton1">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.admin.show', encrypt($admin->id)) }}">
+                                                                href="{{ route('am.permission.show', encrypt($permission->id)) }}">
                                                                 {{ __('Details') }}
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.admin.edit', encrypt($admin->id)) }}">
+                                                                href="{{ route('am.permission.edit', encrypt($permission->id)) }}">
                                                                 {{ __('Edit') }}
                                                             </a>
                                                         </li>
-                                                        <li class="dropdown">
-                                                            <a class="dropdown-item dropdown-toggle"
-                                                                href="javascript:void(0)" id="status" role="button"
-                                                                aria-expanded="false">
-                                                                {{ __('Status') }}
-                                                            </a>
-                                                            <ul class="dropdown-menu" aria-labelledby="status">
-                                                                @foreach ($admin->getStatusBtnText($admin->status) as $status)
-                                                                    <li class="dropdown-item">
-                                                                        <a href="{{ route('am.admin.status', [encrypt($admin->id), encrypt(array_search($status['text'], $admin->getStatus()))]) }}"
-                                                                            class="text-{{ $status['class'] }}">
-                                                                            {{ $status['text'] }}
-                                                                        </a>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
                                                         <li>
                                                             <a title="Delete" href="javascript:void(0)"
-                                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{ $admin->id }}').submit();"
+                                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{ $permission->id }}').submit();"
                                                                 class="dropdown-item text-danger" data-id="">
                                                                 {{ __('Delete') }}
                                                             </a>
-                                                            <form id="delete-form-{{ $admin->id }}"
-                                                                action="{{ route('am.admin.destroy', encrypt($admin->id)) }}"
+                                                            <form id="delete-form-{{ $permission->id }}"
+                                                                action="{{ route('am.permission.destroy', encrypt($permission->id)) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')

@@ -78,7 +78,7 @@ function genders()
 {
   $genders = [];
   $authBaseModel = new AuthBaseModel();
-  foreach ($authBaseModel->getStatus() as $key => $value) {
+  foreach ($authBaseModel->getGender() as $key => $value) {
     $genders[$key] = $value;
   }
   return $genders;
