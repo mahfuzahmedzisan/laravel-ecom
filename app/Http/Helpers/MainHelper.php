@@ -15,7 +15,7 @@ function user()
 
 function timeFormat($time)
 {
-  return date(('d M, Y H:i A'), strtotime($time));
+  return date('d M, Y h:i A', strtotime($time));
 }
 
 function createrName($user)

@@ -59,7 +59,7 @@
                                                         </li>
                                                         <li>
                                                             <a title="Delete" href="javascript:void(0)"
-                                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{ $role->id }}').submit();"
+                                                                onclick="confirmDelete(() => document.getElementById('delete-form-{{ $role->id }}').submit());"
                                                                 class="dropdown-item text-danger" data-id="">
                                                                 {{ __('Delete') }}
                                                             </a>

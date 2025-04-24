@@ -54,7 +54,7 @@
                                                         </li>
                                                         <li>
                                                             <a title="Delete" class="dropdown-item text-danger"
-                                                                href="{{ route('am.permission.force-delete', encrypt($permission->id)) }}">
+                                                            href="javascript:void(0)" onclick="confirmPermanentDelete('{{ route('am.permission.force-delete', encrypt($permission->id)) }}')">
                                                                 {{ __('Permanently Delete') }}
                                                             </a>
 
