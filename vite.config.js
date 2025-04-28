@@ -9,6 +9,7 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/css/app.css',
+                'resources/css/datatables.css',
                 'resources/js/app.js',
             ],
             refresh: true,

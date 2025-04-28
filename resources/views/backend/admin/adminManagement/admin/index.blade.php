@@ -37,7 +37,7 @@
                                             </span>
                                         </td>
                                         <td>{{ timeFormat($admin->created_at) }}</td>
-                                        <td>{{ createrName($admin->createdBy) }}</td>
+                                        <td>{{ $admin->created_by_name }}</td>
 
                                         <td>
                                             <div

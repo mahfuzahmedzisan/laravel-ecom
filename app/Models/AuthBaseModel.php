@@ -47,10 +47,43 @@ class AuthBaseModel extends Authenticatable
     public const GENDER_OTHER = 3;
 
     protected $appends = [
+        'created_by_name',
+        'updated_by_name',
+        'deleted_by_name',
+        'creator_name',
+        'updater_name',
+        'deleter_name',
+
         'status_badge_label',
         'status_badge_color',
         'gender_label',
     ];
+
+    public function getCreatedByNameAttribute()
+    {
+        return $this->createdBy ? $this->createdBy->name : 'System';
+    }
+    public function getUpdatedByNameAttribute()
+    {
+        return $this->updatedBy ? $this->updatedBy->name : 'Null';
+    }
+    public function getDeletedByNameAttribute()
+    {
+        return $this->deletedBy ? $this->deletedBy->name : 'Null';
+    }
+
+    public function getCreatorNameAttribute()
+    {
+        return $this->creator ? $this->creator->name : 'Null';
+    }
+    public function getUpdaterNameAttribute()
+    {
+        return $this->updater ? $this->updater->name : 'Null';
+    }
+    public function getDeleterNameAttribute()
+    {
+        return $this->deleter ? $this->deleter->name : 'Null';
+    }
 
     public function getStatus()
     {

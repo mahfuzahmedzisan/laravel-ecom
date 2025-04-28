@@ -36,7 +36,7 @@
                                             </span>
                                         </td>
                                         <td>{{ timeFormat($admin->deleted_at) }}</td>
-                                        <td>{{ $admin->deletedBy->name }}</td>
+                                        <td>{{ $admin->deleted_by_name }}</td>
 
                                         <td>
                                             <div

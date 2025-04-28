@@ -60,7 +60,7 @@
                             <tr>
                                 <th scope="row">{{ __('Created By') }}</th>
                                 <td>{{ __(' : ') }} </td>
-                                <td>{{ createrName($admin->createdBy) }}</td>
+                                <td>{{ $admin->created_by_name }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">{{ __('Updated At') }}</th>
@@ -70,7 +70,7 @@
                             <tr>
                                 <th scope="row">{{ __('Updated By') }}</th>
                                 <td>{{ __(' : ') }} </td>
-                                <td>{{ updaterName($admin->updatedBy) }}</td>
+                                <td>{{ $admin->updated_by_name }}</td>
                             </tr>
                     </table>
                 </div>

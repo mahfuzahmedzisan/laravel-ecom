@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Admin\AdminManagement;
 
+use App\Models\Role;
+use App\Models\Permission;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminManagement\RoleRequest;
-use App\Models\Role;
-use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -29,7 +30,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.adminManagement.role.create');
+        $data['grouped_permissions'] = Permission::orderBy('prefix')->get()->groupBy('prefix');
+        return view('backend.admin.adminManagement.role.create', $data);
     }
 
     /**

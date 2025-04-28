@@ -26,6 +26,35 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @foreach ($grouped_permissions->chunk(1) as $chunks)
+                                        <div class="col-md-3">
+                                            @foreach ($chunks as $prefix => $permissions)
+                                                <h3 class="m-0 pl-4 groupName">
+                                                    <input type="checkbox" class="m-2 prefix-checkbox"
+                                                        id="prefix-checkbox-{{ $prefix }}"
+                                                        data-prefix="{{ $prefix }}">
+                                                    <label
+                                                        for="prefix-checkbox-{{ $prefix }}">{{ $prefix }}</label>
+                                                </h3>
+                                                <ul>
+                                                    @foreach ($permissions as $permission)
+                                                        <li class="ps-4">
+                                                            <input type="checkbox" name="permissions[]"
+                                                                id="permission-checkbox-{{ $permission->id }}"
+                                                                value="{{ $permission->name }}"
+                                                                class=" m-2 permission-checkbox">
+                                                            <label
+                                                                for="permission-checkbox-{{ $permission->id }}">{{ Str::replace('_', ' ', $permission->name) }}</label>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

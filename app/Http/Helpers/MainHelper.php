@@ -18,20 +18,6 @@ function timeFormat($time)
   return date('d M, Y h:i A', strtotime($time));
 }
 
-function createrName($user)
-{
-  return $user->name ?? 'System';
-}
-
-function updaterName($user)
-{
-  return $user->name ?? 'Null';
-}
-
-function deleterName($user)
-{
-  return $user->name ?? 'Null';
-}
 
 function updatedDate($createdAt, $updatedAt)
 {
