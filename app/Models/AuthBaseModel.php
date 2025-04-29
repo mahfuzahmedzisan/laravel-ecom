@@ -59,6 +59,11 @@ class AuthBaseModel extends Authenticatable
         'gender_label',
     ];
 
+    public function getAppends()
+    {
+        return $this->appends;
+    }
+
     public function getCreatedByNameAttribute()
     {
         return $this->createdBy ? $this->createdBy->name : 'System';

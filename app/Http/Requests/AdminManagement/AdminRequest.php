@@ -27,6 +27,7 @@ class AdminRequest extends FormRequest
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'gender' => 'required|integer',
+            'role_id' => 'required|exists:roles,id',
         ] +
             ($this->isMethod('POST') ? $this->store() : $this->update());
     }

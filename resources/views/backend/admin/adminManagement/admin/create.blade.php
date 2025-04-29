@@ -40,6 +40,24 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label for="role_id" class="form-label">Role</label>
+                                    <select class="form-select @error('role') is-invalid @enderror" id="role_id"
+                                        name="role_id">
+                                        <option value="" disabled selected>Select Role</option>
+                                        @foreach ($roles as $key => $role)
+                                            <option value="{{ $role->id }}"
+                                                {{ old('role_id') == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('role_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
                                     <label for="phone" class="form-label">Phone</label>
                                     <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                         id="phone" name="phone" value="{{ old('phone') }}">
@@ -57,10 +75,23 @@
                                         name="gender">
                                         <option value="" disabled selected>Select Gender</option>
                                         @foreach (genders() as $key => $gender)
-                                            <option value="{{ $key }}" {{ old('gender') == $key ? 'selected' : '' }}>{{ $gender }}</option>
+                                            <option value="{{ $key }}"
+                                                {{ old('gender') == $key ? 'selected' : '' }}>{{ $gender }}</option>
                                         @endforeach
                                     </select>
                                     @error('gender')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                        id="address" name="address" value="{{ old('address') }}">
+                                    @error('address')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -86,18 +117,6 @@
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
                                         id="password_confirmation" name="password_confirmation">
                                     @error('password_confirmation')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                        id="address" name="address" value="{{ old('address') }}">
-                                    @error('address')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

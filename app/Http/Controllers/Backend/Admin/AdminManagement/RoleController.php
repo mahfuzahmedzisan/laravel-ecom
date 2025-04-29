@@ -7,6 +7,7 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminManagement\RoleRequest;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -21,7 +22,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::latest()->get();
+        $roles = Role::orderBy('name')->get();
         return view('backend.admin.adminManagement.role.index', compact('roles'));
     }
 
@@ -40,10 +41,11 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $validated = $request->validated();
-
-        $validated['created_by'] = admin()->id;
-
-        Role::create($validated);
+        DB::transaction(function () use ($validated, $request) {
+            $validated['created_by'] = admin()->id;
+            $role = Role::create($validated);
+            $role->givePermissionTo($request->permissions);
+        });
 
         session()->flash('success', 'Role created successfully.');
         return redirect()->route('am.role.index');
@@ -54,9 +56,9 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        $role = Role::findOrFail(decrypt($id));
-
-        return view('backend.admin.adminManagement.role.view', compact('role'));
+        $data['role'] = Role::with('permissions:id,name,prefix')->findOrFail(decrypt($id));
+        $data['role']->permissions_group = $data['role']->permissions->groupBy('prefix');
+        return view('backend.admin.adminManagement.role.view', $data);
     }
 
     /**
@@ -64,8 +66,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        $role = Role::findOrFail(decrypt($id));
-        return view('backend.admin.adminManagement.role.edit', compact('role'));
+        $data['role'] = Role::findOrFail(decrypt($id));
+        $data['grouped_permissions'] = Permission::orderBy('prefix')->get()->groupBy('prefix');
+        return view('backend.admin.adminManagement.role.edit', $data);
     }
 
     /**
@@ -73,12 +76,13 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, string $id)
     {
-        $role = Role::findOrFail(decrypt($id));
-
         $validated = $request->validated();
-        $validated['updated_by'] = admin()->id;
-
-        $role->update($validated);
+        DB::transaction(function () use ($validated, $request, $id) {
+            $role = Role::findOrFail(decrypt($id));
+            $validated['updated_by'] = admin()->id;
+            $role->update($validated);
+            $role->syncPermissions($request->permissions);
+        });
 
         session()->flash('success', 'Role updated successfully.');
         return redirect()->route('am.role.index');
@@ -112,7 +116,11 @@ class RoleController extends Controller
         $role->restore();
 
         session()->flash('success', 'Role restored successfully.');
-        return redirect()->route('am.role.index');
+        $count = Role::onlyTrashed()->count();
+        if ($count == 0) {
+            return redirect()->route('am.role.index');
+        }
+        return redirect()->route('am.role.trash');
     }
 
     public function forceDelete(string $id)
@@ -121,6 +129,10 @@ class RoleController extends Controller
         $role->forceDelete();
 
         session()->flash('success', 'Role permanently deleted successfully.');
-        return redirect()->route('am.role.index');
+        $count = Role::onlyTrashed()->count();
+        if ($count == 0) {
+            return redirect()->route('am.role.index');
+        }
+        return redirect()->route('am.role.trash');
     }
 }

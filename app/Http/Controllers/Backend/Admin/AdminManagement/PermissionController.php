@@ -110,7 +110,12 @@ class PermissionController extends Controller
         $permission->restore();
 
         session()->flash('success', 'Permission restored successfully.');
-        return redirect()->route('am.permission.index');
+
+        $count = Permission::onlyTrashed()->count();
+        if ($count == 0) {
+            return redirect()->route('am.permission.index');
+        }
+        return redirect()->route('am.permission.trash');
     }
 
     public function forceDelete(string $id)
@@ -119,6 +124,10 @@ class PermissionController extends Controller
         $permission->forceDelete();
 
         session()->flash('success', 'Permission permanently deleted successfully.');
-        return redirect()->route('am.permission.index');
+        $count = Permission::onlyTrashed()->count();
+        if ($count == 0) {
+            return redirect()->route('am.permission.index');
+        }
+        return redirect()->route('am.permission.trash');
     }
 }

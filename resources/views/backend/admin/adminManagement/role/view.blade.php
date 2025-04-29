@@ -26,6 +26,23 @@
                                 <td>{{ $role->guard_name }}</td>
                             </tr>
                             <tr>
+                                <th scope="row">{{ __('Permissions') }}</th>
+                                <td>{{ __(' : ') }} </td>
+                                <td>
+                                    @foreach ($role->permissions_group as $prefix => $permissions)
+                                       <div class="d-flex align-items-center flex-wrap gap-3">
+                                        <h5 class="m-0 p-0">{{ $prefix }}</h5>
+                                        <p class="m-0 p-0">{{ __(' : ') }}</p>
+                                        <div class="d-flex align-items-center flex-wrap gap-1 list-unstyled m-0 p-0">
+                                            @foreach ($permissions as $permission)
+                                                <span>({{ $permission->name }})</span>
+                                            @endforeach
+                                        </div>
+                                       </div>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <tr>
                                 <th scope="row">{{ __('Created At') }}</th>
                                 <td>{{ __(' : ') }} </td>
                                 <td>{{ timeFormat($role->created_at) }}</td>

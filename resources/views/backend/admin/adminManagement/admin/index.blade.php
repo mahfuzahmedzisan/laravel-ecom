@@ -19,6 +19,7 @@
                                     <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Role') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Created At') }}</th>
                                     <th>{{ __('Created By') }}</th>
@@ -31,6 +32,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->role_name}}</td>
                                         <td>
                                             <span class="badge badge-{{ $admin->status_badge_color }}">
                                                 {{ $admin->status_badge_label }}

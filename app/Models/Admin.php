@@ -8,7 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Admin extends AuthBaseModel
 {
     use HasRoles;
-    
+
     protected $guard = 'admin';
 
     protected $fillable = [
@@ -21,6 +21,7 @@ class Admin extends AuthBaseModel
         'created_by',
         'updated_by',
         'deleted_by',
+        'role_id',
 
         'image',
         'phone',
@@ -50,4 +51,22 @@ class Admin extends AuthBaseModel
         'status' => 'integer',
         'gender' => 'integer',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->appends = array_merge(parent::getAppends(), [
+            'role_name',
+        ]);
+    }
+
+    public function getRoleNameAttribute()
+    {
+        return $this->role()->pluck('name')->first() ?? 'N/A';
+    }
 }
