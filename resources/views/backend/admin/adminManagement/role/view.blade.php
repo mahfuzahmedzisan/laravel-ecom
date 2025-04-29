@@ -30,10 +30,9 @@
                                 <td>{{ __(' : ') }} </td>
                                 <td>
                                     @foreach ($role->permissions_group as $prefix => $permissions)
-                                       <div class="d-flex align-items-center flex-wrap gap-3">
-                                        <h5 class="m-0 p-0">{{ $prefix }}</h5>
-                                        <p class="m-0 p-0">{{ __(' : ') }}</p>
-                                        <div class="d-flex align-items-center flex-wrap gap-1 list-unstyled m-0 p-0">
+                                       <div class="d-flex align-items-center flex-wrap mb-3">
+                                        <h5 class="m-0 pe-3">{{ $prefix }} {{ __(' : ') }}</h5>
+                                        <div class="d-flex gap-{50px} align-items-center flex-wrap gap-1 m-0 p-0">
                                             @foreach ($permissions as $permission)
                                                 <span>({{ $permission->name }})</span>
                                             @endforeach

@@ -22,7 +22,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::orderBy('name')->get();
+        $admins = Admin::orderBy('id', 'asc')->get();
         return view('backend.admin.adminManagement.admin.index', compact('admins'));
     }
 
@@ -64,6 +64,7 @@ class AdminController extends Controller
     public function show(string $id)
     {
         $admin = Admin::findOrFail(decrypt($id));
+        $admin->permissions_group = $admin->role->permissions->groupBy('prefix');
         return view('backend.admin.adminManagement.admin.view', compact('admin'));
     }
 
@@ -114,7 +115,17 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         $admin = Admin::findOrFail(decrypt($id));
-        $admin->update(['deleted_by' => admin()->id, 'status' => Admin::STATUS_INACTIVE]);
+        if ($admin->hasRole('Super Admin')) {
+            session()->flash('error', 'Super Admin can not be deleted!');
+            return redirect()->route('am.admin.index');
+        }
+
+        if ($admin->id === admin()->id) {
+            session()->flash('error', 'You can not delete yourself!');
+            return redirect()->route('am.admin.index');
+        }
+
+        $admin->update(['deleted_by' => admin()->id]);
         $admin->delete();
 
         session()->flash('success', 'Admin deleted successfully.');
@@ -140,12 +151,12 @@ class AdminController extends Controller
     public function restore(string $id)
     {
         $admin = Admin::onlyTrashed()->findOrFail(decrypt($id));
-        $admin->update(['deleted_by' => null, 'deleted_at' => null, 'updated_by' => admin()->id, 'status' => Admin::STATUS_ACTIVE]);
+        $admin->update(['deleted_by' => null, 'deleted_at' => null, 'updated_by' => admin()->id]);
         $admin->restore();
 
         session()->flash('success', 'Admin restored successfully.');
         $count = Admin::onlyTrashed()->count();
-        
+
         if ($count == 0) {
             return redirect()->route('am.admin.index');
         }
